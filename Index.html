@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Family Christmas Quiz 2025</title>
+<style>
+body { 
+    font-family: Arial, sans-serif; 
+    padding: 20px; 
+    max-width: 900px; 
+    margin: auto;
+    background-color: #ffffff;
+    color: #3c0066;
+    background-image: 
+        radial-gradient(circle, rgba(186,134,11,0.15) 1px, transparent 1px),
+        radial-gradient(circle, rgba(60,0,102,0.1) 1px, transparent 1px);
+    background-size: 40px 40px, 60px 60px;
+}
+
+h1 { 
+    text-align: center; 
+    color: #b8860b;
+    font-size: 2.3em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 6px rgba(184,134,11,0.4);
+}
+
+#startnote {
+    text-align:center; 
+    font-size:1.15em; 
+    font-weight:bold; 
+    margin-bottom:20px;
+    color: #3c0066;
+}
+
+/* Snowflakes + Stars Header Bar */
+.header-deco {
+    text-align:center;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #b8860b;
+}
+.header-deco span {
+    margin: 0 6px;
+}
+
+/* Question boxes */
+.question { 
+    margin-bottom: 20px; 
+    padding: 18px; 
+    border: 2px solid #b8860b;
+    border-radius: 10px;
+    background-color: #faf6ff;
+    box-shadow: 0 0 10px rgba(60,0,102,0.1);
+}
+
+/* Buttons */
+button { 
+    padding: 12px 20px; 
+    margin-top: 15px; 
+    cursor: pointer;
+    background-color: #b8860b;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+}
+button:hover {
+    background-color: #9c7608;
+}
+
+/* Score + host note */
+#result { 
+    font-weight: bold; 
+    font-size: 1.3em; 
+    margin-top: 20px;
+    color: #3c0066;
+}
+#hostnote { 
+    margin-top: 8px; 
+    font-style: italic; 
+    color: #b8860b;
+}
+
+/* Answers section */
+#answers { 
+    margin-top: 25px; 
+    padding-top: 10px; 
+    border-top: 3px solid #b8860b;
+    display:none;
+}
+#answers h2 {
+    color: #3c0066;
+}
+
+/* Decorative floating snowflakes & stars */
+.flake, .star {
+    position: absolute;
+    font-size: 20px;
+    color: rgba(184,134,11,0.35);
+    animation: float 8s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity:1; }
+    100% { transform: translateY(-120px); opacity:0; }
+}
+
+.sparkle {
+    position: relative;
+    display: inline-block;
+}
+.sparkle:after {
+    content: '✨';
+    position: absolute;
+    top: -5px;
+    right: -18px;
+    animation: twinkle 1.5s infinite ease-in-out;
+    opacity: 0.8;
+}
+@keyframes twinkle {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.6; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="header-deco">
+    <span>❄️</span><span>✨</span><span>❄️</span><span>✨</span><span>❄️</span>
+</div>
+
+<h1>Family Christmas Quiz 2025</h1>
+
+<p id="startnote">Take part in the Christmas Family Quiz 2025. Good luck and Merry Christmas!</p>
+
+<p>Answer the questions and hit <strong >Submit</strong>. The quiz will automatically calculate your score, and players will be given the answers at the end of the quiz.</p>
+
+<div id="quiz"></div>
+<button onclick="submitQuiz()">Submit</button>
+<div id="result"></div>
+<div id="hostnote"></div>
+
+<div id="answers">
+  <h2>Answer Key</h2>
+  <ol>
+    <li>Queen Victoria</li>
+    <li>Star Wars</li>
+    <li>Michael Jackson</li>
+    <li>Tokyo</li>
+    <li>Game of Thrones</li>
+    <li>Jane Austen</li>
+    <li>Paris</li>
+    <li>Leonardo DiCaprio</li>
+    <li>The Nile</li>
+    <li>Madonna</li>
+    <li>Linda Carter</li>
+    <li>Mars</li>
+    <li>J.K. Rowling</li>
+    <li>Euro</li>
+    <li>Frozen</li>
+    <li>Bridgerton</li>
+    <li>221B Baker Street</li>
+    <li>Adele</li>
+    <li>Neil Armstrong</li>
+    <li>Au</li>
+    <li>Free – K-Pop Demon Hunters</li>
+    <li>Kevin McCloud</li>
+    <li>Should have gone to Specsavers</li>
+    <li>QVC</li>
+    <li>Made by Mitchell</li>
+    <li>Resin</li>
+    <li>Louis</li>
+    <li>Aitch</li>
+    <li>Austin Butler</li>
+    <li>Sophia (member of Katseye)</li>
+  </ol>
+</div>
+
+<!-- Animated Snowflakes & Stars for K-pop vibe -->
+<div class="flake" style="top:90%; left:10%;">❄️</div>
+<div class="flake" style="top:95%; left:30%;">❄️</div>
+<div class="flake" style="top:92%; left:70%;">❄️</div>
+<div class="star"  style="top:94%; left:50%;">✨</div>
+<div class="star"  style="top:89%; left:80%;">✨</div>
+
+<script>
+let lastScore = null;
+
+
+const questions = [
+  { q: "Which monarch reigned during the Victorian era?", a:["Queen Anne","Queen Victoria","Queen Elizabeth I","Mary I"], c:1 },
+
+  // Q2: Christmas TRUE/FALSE
+  { q: "True or False: Mariah Carey’s ‘All I Want for Christmas Is You’ was released in the 1990s.", 
+    a:["True","False"], c:0, type:"tf" },
+
+  { q: "Who sang the hit song 'Thriller'?", a:["Prince","Michael Jackson","Whitney Houston","Madonna"], c:1 },
+
+  // Q4: Christmas SELECT ALL THAT APPLY
+  { q: "Select all that apply: Which of the following are traditional Christmas colours?", 
+    a:["Red","Gold","Blue","Green"], c:[0,1,3], type:"multi" },
+
+  { q: "Which series features the Stark family?", a:["The Witcher","Game of Thrones","Vikings","The Last Kingdom"], c:1 },
+  { q: "Who wrote the novel 'Pride and Prejudice'?", a:["Emily Brontë","Jane Austen","Charlotte Brontë","Mary Shelley"], c:1 },
+  { q: "In the movie 'Home Alone', what city does Kevin's family travel to for Christmas?", a:["1905","1912","1920","1898"], c:1 },
+  { q: "Who played Jack Dawson in the film 'Titanic'?", a:["Brad Pitt","Leonardo DiCaprio","Tom Cruise","Matt Damon"], c:1 },
+  { q: "Which is the longest river in Africa?", a:["Niger","Nile","Congo","Zambezi"], c:1 },
+  { q: "Who is often called the 'Queen of Pop'?", a:["Whitney Houston","Beyoncé","Madonna","Lady Gaga"], c:2 },
+  { q: "Who killed Keanu Taylor in the 2023 EastEnders Christmas episode?", a:["Friends","How I Met Your Mother","Seinfeld","The Big Bang Theory"], c:0 },
+  { q: "Which planet in our solar system is known as the Red Planet?", a:["Venus","Mars","Jupiter","Mercury"], c:1 },
+  { q: "Who wrote the 'Harry Potter' book series?", a:["C.S. Lewis","J.R.R. Tolkien","J.K. Rowling","Philip Pullman"], c:2 },
+  { q: "What is the currency used in Italy today?", a:["Lira","Euro","Pound","Franc"], c:1 },
+  { q: "Which Disney film features the sisters Elsa and Anna?", a:["Moana","Frozen","Tangled","Brave"], c:1 },
+  { q: "Which period drama series focuses on the Bridgerton family?", a:["Downton Abbey","Poldark","Bridgerton","The Crown"], c:2 },
+  { q: "What is the famous London address of Sherlock Holmes?", a:["10 Downing Street","221B Baker Street","12 Grimmauld Place","1 Fleet Street"], c:1 },
+
+  // Q18: Christmas MCQ
+  { q: "Which country is credited with starting the tradition of the Christmas tree?", 
+    a:["Germany","Sweden","Canada","United States"], c:0 },
+
+  { q: "Who sang the hit song 'Rolling in the Deep'?", a:["Adele","Rihanna","Taylor Swift","Katy Perry"], c:0 },
+  { q: "Who was the first person to walk on the Moon?", a:["Buzz Aldrin","Yuri Gagarin","Neil Armstrong","Michael Collins"], c:2 },
+  { q: "What is the chemical symbol for gold?", a:["Ag","Au","Gd","Go"], c:1 },
+  { q: "“What if we heal what's broken?” – This lyric is from which song/movie?", a:["Into the Unknown – Frozen 2","Free – K-Pop Demon Hunters","Let It Go – Frozen","Heal What's Broken – Wish"], c:1 },
+  { q: "Who is the presenter of Channel 4’s Grand Designs?", a:["Nick Knowles","George Clarke","Kevin McCloud","Alan Titchmarsh"], c:2 },
+  { q: "Finish the sentence: 'Should have gone to ____'", a:["Boots","Specsavers","Vision Express","Tesco"], c:1 },
+  { q: "What is the number one shopping channel?", a:["Ideal World","QVC","HSN","ShopHQ"], c:1 },
+  { q: "Which beauty brand recently opened its first store in Liverpool?", a:["Refy","Made by Mitchell","Rare Beauty","NYX"], c:1 },
+  { q: "Which of the following is the correct spelling of the crafting material?", a:["Resign","Ressin","Resin","Reson"], c:2 },
+  { q: "Who is the main character in the TV adaptation of Anne Rice’s *Interview with the Vampire*?", a:["Lestat","Armand","Louis","Claudia"], c:2 },
+  { q: "Which celeb appears in the 2025 'I'm a Celebrity… Get Me Out of Here' lineup?", a:["Lewis Capaldi","Aitch","Central Cee","Stormzy"], c:1 },
+  { q: "Who played Elvis in the recent movie 'Elvis'?", a:["Timothée Chalamet","Austin Butler","Tom Holland","Miles Teller"], c:1 },
+  { q: "Which of the following is a real member of 'Katseye'?", a:["Britney","Janet","Sophia","Ariana"], c:2 }
+];
+
+
+
+function shuffleQuestions(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function buildQuiz() {
+  shuffleQuestions(questions);
+  let quizHTML = "";
+  questions.forEach((item, index) => {
+    quizHTML += `<div class='question'>
+      <p><strong >${index+1}. ${item.q}</strong></p>`;
+    item.a.forEach((ans, i) => {
+      quizHTML += `<label><input type='radio' name='q${index}' value='${i}'> ${ans}</label><br>`;
+    });
+    quizHTML += "</div>";
+  });
+  document.getElementById("quiz").innerHTML = quizHTML;
+}
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((item, index) => {
+    const selected = document.querySelector("input[name='q" + index + "']:checked");
+    if (selected && parseInt(selected.value) === item.c) score++;
+  });
+  lastScore = score;
+  document.getElementById("result").innerText = "You scored " + score + " out of " + questions.length + "!";
+  document.getElementById("hostnote").innerText = "Please tell your score to the host.";
+  document.getElementById("answers").style.display = "block";
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
