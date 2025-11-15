@@ -119,6 +119,53 @@ button:hover {
     0% { transform: translateY(0); opacity:1; }
     100% { transform: translateY(-140px); opacity:0; }
 }
+
+.correct-answer {
+    color: #008000;
+    font-weight: bold;
+}
+.user-answer-wrong {
+    color: #900000;
+    text-decoration: line-through;
+}
+
+
+/* EXTRA SPARKLE BOOST ✨ */
+.sparkle:after,
+.sparkle:before {
+    content: '✨';
+    position: absolute;
+    animation: twinkle 1.2s infinite ease-in-out;
+    font-size: 1.4em;
+    opacity: 1;
+}
+
+.sparkle:before {
+    content: '❄️';
+    right: -28px;
+    top: -14px;
+    animation-duration: 1.6s;
+    opacity: 0.85;
+}
+
+/* Add third sparkle */
+.sparkle span.sparkle-extra {
+    position: absolute;
+    right: -10px;
+    top: 12px;
+    font-size: 1.3em;
+    animation: twinkle 1.8s infinite ease-in-out;
+    opacity: 0.9;
+}
+
+
+.correct-answer { color: #008000; font-weight:bold; }
+.user-answer-wrong { color:#b30000; text-decoration: line-through; }
+
+
+.correct-answer { color: #008000; font-weight:bold; }
+.user-answer-wrong { color:#b30000; text-decoration: line-through; }
+
 </style>
 </head>
 <body>
@@ -136,43 +183,11 @@ button:hover {
 <div id="quiz"></div>
 <button onclick="submitQuiz()">Submit</button>
 <div id="result"></div>
+
+
 <div id="hostnote"></div>
 
-<div id="answers">
-  <h2>Answer Key (in order)</h2>
-  <ol>
-    <li>Queen Victoria</li>
-    <li>True – it was released in the 1990s</li>
-    <li>Michael Jackson</li>
-    <li>Red, Gold and Green</li>
-    <li>Game of Thrones</li>
-    <li>Jane Austen</li>
-    <li>Paris</li>
-    <li>Leonardo DiCaprio</li>
-    <li>The Nile</li>
-    <li>Madonna</li>
-    <li>Linda Carter</li>
-    <li>Mars</li>
-    <li>J.K. Rowling</li>
-    <li>Euro</li>
-    <li>Frozen</li>
-    <li>Bridgerton</li>
-    <li>221B Baker Street</li>
-    <li>Germany</li>
-    <li>Adele</li>
-    <li>Neil Armstrong</li>
-    <li>Au</li>
-    <li>Free – K-Pop Demon Hunters</li>
-    <li>Kevin McCloud</li>
-    <li>Specsavers</li>
-    <li>QVC</li>
-    <li>Made by Mitchell</li>
-    <li>Resin</li>
-    <li>Louis</li>
-    <li>Aitch</li>
-    <li>Sophia (member of Katseye)</li>
-  </ol>
-</div>
+
 
 <!-- Animated Snowflakes & Stars -->
 <div class="flake" style="top:88%; left:10%;">❄️</div>
@@ -183,218 +198,99 @@ button:hover {
 
 <script>
 // All 30 questions back, no sound, no bells
+
 const questions = [
-  { 
-    q: "Which monarch reigned during the Victorian era?",
-    type: "mc",
-    options: ["Queen Anne","Queen Victoria","Queen Elizabeth I","Mary I"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "True or False: Mariah Carey’s ‘All I Want for Christmas Is You’ was released in the 1990s.",
-    type: "mc",
-    options: ["True","False"],
-    correct: [0],
-    sparkle: true
-  },
-  { 
-    q: "Who sang the hit song 'Thriller'?",
-    type: "mc",
-    options: ["Prince","Michael Jackson","Whitney Houston","Madonna"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Select all that apply: Which of the following are traditional Christmas colours?",
-    type: "multi",
-    options: ["Red","Gold","Blue","Green"],
-    correct: [0,1,3],
-    sparkle: true
-  },
-  { 
-    q: "Which series features the Stark family?",
-    type: "mc",
-    options: ["The Witcher","Game of Thrones","Vikings","The Last Kingdom"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Who wrote the novel 'Pride and Prejudice'?",
-    type: "mc",
-    options: ["Emily Brontë","Jane Austen","Charlotte Brontë","Mary Shelley"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "In the movie 'Home Alone', what city does Kevin's family travel to for Christmas?",
-    type: "mc",
-    options: ["London","Paris","Rome","New York"],
-    correct: [1],
-    sparkle: true
-  },
-  { 
-    q: "Who played Jack Dawson in the film 'Titanic'?",
-    type: "mc",
-    options: ["Brad Pitt","Leonardo DiCaprio","Tom Cruise","Matt Damon"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which is the longest river in Africa?",
-    type: "mc",
-    options: ["Niger","Nile","Congo","Zambezi"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Who is often called the 'Queen of Pop'?",
-    type: "mc",
-    options: ["Whitney Houston","Beyoncé","Madonna","Lady Gaga"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "Who killed Keanu Taylor in the 2023 EastEnders Christmas episode?",
-    type: "mc",
-    options: ["Sharon Watts","Linda Carter","Denise Fox","Stacey Slater"],
-    correct: [1],
-    sparkle: true
-  },
-  { 
-    q: "Which planet in our solar system is known as the Red Planet?",
-    type: "mc",
-    options: ["Venus","Mars","Jupiter","Mercury"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Who wrote the 'Harry Potter' book series?",
-    type: "mc",
-    options: ["C.S. Lewis","J.R.R. Tolkien","J.K. Rowling","Philip Pullman"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "What is the currency used in Italy today?",
-    type: "mc",
-    options: ["Lira","Euro","Pound","Franc"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which Disney film features the sisters Elsa and Anna?",
-    type: "mc",
-    options: ["Moana","Frozen","Tangled","Brave"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which period drama series focuses on the Bridgerton family?",
-    type: "mc",
-    options: ["Downton Abbey","Poldark","Bridgerton","The Crown"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "What is the famous London address of Sherlock Holmes?",
-    type: "mc",
-    options: ["10 Downing Street","221B Baker Street","12 Grimmauld Place","1 Fleet Street"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which country is credited with starting the tradition of the Christmas tree?",
-    type: "mc",
-    options: ["Germany","Sweden","Canada","United States"],
-    correct: [0],
-    sparkle: true
-  },
-  { 
-    q: "Who sang the hit song 'Rolling in the Deep'?",
-    type: "mc",
-    options: ["Adele","Rihanna","Taylor Swift","Katy Perry"],
-    correct: [0],
-    sparkle: false
-  },
-  { 
-    q: "Who was the first person to walk on the Moon?",
-    type: "mc",
-    options: ["Buzz Aldrin","Yuri Gagarin","Neil Armstrong","Michael Collins"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "What is the chemical symbol for gold?",
-    type: "mc",
-    options: ["Ag","Au","Gd","Go"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "“What if we heal what's broken?” – This lyric is from which song/movie?",
-    type: "mc",
-    options: ["Into the Unknown – Frozen 2","Free – K-Pop Demon Hunters","Let It Go – Frozen","Heal What's Broken – Wish"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Who is the presenter of Channel 4’s Grand Designs?",
-    type: "mc",
-    options: ["Nick Knowles","George Clarke","Kevin McCloud","Alan Titchmarsh"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "Finish the sentence: 'Should have gone to ____'",
-    type: "mc",
-    options: ["Boots","Specsavers","Vision Express","Tesco"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "What is the number one shopping channel?",
-    type: "mc",
-    options: ["Ideal World","QVC","HSN","ShopHQ"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which beauty brand recently opened its first store in Liverpool?",
-    type: "mc",
-    options: ["Refy","Made by Mitchell","Rare Beauty","NYX"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which of the following is the correct spelling of the crafting material?",
-    type: "mc",
-    options: ["Resign","Ressin","Resin","Reson"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "Who is the main character in the TV adaptation of Anne Rice’s 'Interview with the Vampire'?",
-    type: "mc",
-    options: ["Lestat","Armand","Louis","Claudia"],
-    correct: [2],
-    sparkle: false
-  },
-  { 
-    q: "Which of these celebrities appears in the 2025 series of 'I'm a Celebrity… Get Me Out of Here'?",
-    type: "mc",
-    options: ["Lewis Capaldi","Aitch","Central Cee","Stormzy"],
-    correct: [1],
-    sparkle: false
-  },
-  { 
-    q: "Which of the following is a real member of the girl group 'Katseye'?",
-    type: "mc",
-    options: ["Britney","Janet","Sophia","Ariana"],
-    correct: [2],
-    sparkle: false
-  }
+  { q: "Which monarch reigned during the Victorian era?", type: "mc",
+    options: ["Queen Anne","Queen Victoria","Queen Elizabeth I","Mary I"], correct: [1], sparkle: false },
+
+  { q: "True or False: Mariah Carey’s ‘All I Want for Christmas Is You’ was released in the 1990s.", type: "mc",
+    options: ["True","False"], correct: [0], sparkle: true },
+
+  { q: "Who sang the hit song 'Thriller'?", type: "mc",
+    options: ["Prince","Michael Jackson","Whitney Houston","Madonna"], correct: [1], sparkle: false },
+
+  { q: "Select all that apply: Which of the following are traditional Christmas colours?", type: "multi",
+    options: ["Red","Gold","Blue","Green"], correct: [0,1,3], sparkle: true },
+
+  { q: "Which character said the quote: 'Evil is evil. Lesser, greater, middling… it’s all the same.' (The Witcher)", type: "mc",
+    options: ["Geralt of Rivia","Yennefer","Jaskier","Vesemir"], correct: [0], sparkle: false },
+
+  { q: "Who wrote the novel 'Pride and Prejudice'?", type: "mc",
+    options: ["Emily Brontë","Jane Austen","Charlotte Brontë","Mary Shelley"], correct: [1], sparkle: false },
+
+  { q: "In the movie 'Home Alone', where is Kevin McCallister accidentally left behind?", type: "mc",
+    options: ["At home in Chicago","At the airport","In New York City","At his neighbour's house"], correct: [0], sparkle: true },
+
+  { q: "What is traditionally added to Christmas pudding to bring good luck?", type: "mc",
+    options: ["A silver coin","A cinnamon stick","A star anise","A dried orange slice"], correct: [0], sparkle: true },
+
+  { q: "Which is the longest river in Africa?", type: "mc",
+    options: ["Niger","Nile","Congo","Zambezi"], correct: [1], sparkle: false },
+
+  { q: "Who is often called the 'Queen of Pop'?", type: "mc",
+    options: ["Whitney Houston","Beyoncé","Madonna","Lady Gaga"], correct: [2], sparkle: false },
+
+  { q: "In EastEnders, what is the name given to the group of women involved in the 2023 Christmas storyline?", type: "mc",
+    options: ["The Five","The Six","The Sisters","The Square"], correct: [1], sparkle: true },
+
+  { q: "Which planet is known as the Red Planet?", type: "mc",
+    options: ["Venus","Mars","Jupiter","Mercury"], correct: [1], sparkle: false },
+
+  { q: "Who wrote the 'Harry Potter' book series?", type: "mc",
+    options: ["C.S. Lewis","J.R.R. Tolkien","J.K. Rowling","Philip Pullman"], correct: [2], sparkle: false },
+
+  { q: "What is the currency used in Italy today?", type: "mc",
+    options: ["Lira","Euro","Pound","Franc"], correct: [1], sparkle: false },
+
+  { q: "Which Disney film features the sisters Elsa and Anna?", type: "mc",
+    options: ["Moana","Frozen","Tangled","Brave"], correct: [1], sparkle: false },
+
+  { q: "Which period drama series focuses on the Bridgerton family?", type: "mc",
+    options: ["Downton Abbey","Poldark","Bridgerton","The Crown"], correct: [2], sparkle: false },
+
+  { q: "What is the famous London address of Sherlock Holmes?", type: "mc",
+    options: ["10 Downing Street","221B Baker Street","12 Grimmauld Place","1 Fleet Street"], correct: [1], sparkle: false },
+
+  { q: "Which country is credited with starting the tradition of the Christmas tree?", type: "mc",
+    options: ["Germany","Sweden","Canada","United States"], correct: [0], sparkle: true },
+
+  { q: "Which song became a viral TikTok trend in 2024?", type: "mc",
+    options: ["Greedy – Tate McRae","Espresso – Sabrina Carpenter","Paint The Town Red – Doja Cat","Lovin On Me – Jack Harlow"], correct: [1], sparkle: false },
+
+  { q: "Who was the first person to walk on the Moon?", type: "mc",
+    options: ["Buzz Aldrin","Yuri Gagarin","Neil Armstrong","Michael Collins"], correct: [2], sparkle: false },
+
+  { q: "What is the chemical symbol for gold?", type: "mc",
+    options: ["Ag","Au","Gd","Go"], correct: [1], sparkle: false },
+
+  { q: "“What if we heal what's broken?” – This lyric is from which song/movie?", type: "mc",
+    options: ["Into the Unknown – Frozen 2","Free – K-Pop Demon Hunters","Let It Go – Frozen","Heal What's Broken – Wish"], correct: [1], sparkle: false },
+
+  { q: "Who is the presenter of Channel 4’s Grand Designs?", type: "mc",
+    options: ["Nick Knowles","George Clarke","Kevin McCloud","Alan Titchmarsh"], correct: [2], sparkle: false },
+
+  { q: "Finish the sentence: 'Should have gone to ____'", type: "mc",
+    options: ["Boots","Specsavers","Vision Express","Tesco"], correct: [1], sparkle: false },
+
+  { q: "What is the number one shopping channel?", type: "mc",
+    options: ["Ideal World","QVC","HSN","ShopHQ"], correct: [1], sparkle: false },
+
+  { q: "Which beauty brand recently opened its first store in Liverpool?", type: "mc",
+    options: ["Refy","Made by Mitchell","Rare Beauty","NYX"], correct: [1], sparkle: false },
+
+  { q: "Which of the following is the correct spelling of the crafting material?", type: "mc",
+    options: ["Resign","Ressin","Resin","Reson"], correct: [2], sparkle: false },
+
+  { q: "Who is the main character in the TV adaptation of Anne Rice’s 'Interview with the Vampire'?", type: "mc",
+    options: ["Lestat","Armand","Louis","Claudia"], correct: [2], sparkle: false },
+
+  { q: "Which of these celebrities appears in the 2025 series of 'I'm a Celebrity… Get Me Out of Here'?", type: "mc",
+    options: ["Lewis Capaldi","Aitch","Central Cee","Stormzy"], correct: [1], sparkle: false },
+
+  { q: "Which of the following is a real member of the girl group 'Katseye'?", type: "mc",
+    options: ["Britney","Janet","Sophia","Ariana"], correct: [2], sparkle: false }
 ];
+
 
 function buildQuiz() {
   let quizHTML = "";
@@ -414,37 +310,27 @@ function buildQuiz() {
   document.getElementById("quiz").innerHTML = quizHTML;
 }
 
-function submitQuiz() {
-  let score = 0;
-  questions.forEach((item, index) => {
-    const inputs = document.querySelectorAll("input[name='q" + index + "']");
-    let selected = [];
-    inputs.forEach((inp, i) => {
-      if (inp.checked) selected.push(i);
-    });
-    if (selected.length === 0) return; // no answer
-    if (item.type === "multi") {
-      const correctSorted = [...item.correct].sort();
-      const selectedSorted = [...selected].sort();
-      if (correctSorted.length === selectedSorted.length &&
-          correctSorted.every((v, i) => v === selectedSorted[i])) {
-        score++;
-      }
-    } else {
-      if (selected[0] === item.correct[0]) {
-        score++;
-      }
-    }
-  });
 
-  document.getElementById("result").innerText =
-    "You scored " + score + " out of " + questions.length + "!";
-  document.getElementById("hostnote").innerText =
-    "Please tell your score to the host.";
-  document.getElementById("answers").style.display = "block";
-}
-
-buildQuiz();
 </script>
+
+<h2 style="margin-top:30px; color:#3c0066;">Correct Answers</h2>
+<ol id="correct-answer-list"></ol>
+<script>
+
+});
+</script>
+
+
+<div id="correct-answers" style="display:none;">
+  <h2 style="margin-top:30px; color:#3c0066;">Correct Answers</h2>
+  <ol id="correct-answer-list"></ol>
+</div>
+
+<script>
+// Rebuild correct answers list only (no strike-throughs)
+
+});
+</script>
+
 </body>
 </html>
